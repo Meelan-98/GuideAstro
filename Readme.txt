@@ -24,6 +24,7 @@ Use the following endpoints to interact with the server
 
 ......................Authentication End points
 
+
 login POST > localhost:3000/auth/login?username=meelan&password=pass
 
             * Please note that after login user gets invalidated after 500 minutes
@@ -37,5 +38,29 @@ signup POST > localhost:3000/auth/signup?username=meelan&password=pass&type=admi
             Here type can be      a) admin   or   b)regular
 
 
-......................User Action containing End points 
+
+......................User Action containing End points for Space Object Handling
+
+
+Add Astronomy object POST > localhost:3000/api/AddAstrObj?tag=astro_object_name&image=url_for_the_image&desc=description
+
+Edit Astronomy object PUT > localhost:3000/api/EditAstrObj?tag=obj1&desc=description&image=image
+
+    Here tag should be defined but desc and decription are not compulsory
+
+Edit Planet object PUT > localhost:3000/api/EditPlanet?tag=obj1&image=imgtest&desc=description
+
+    Here also above condition holds
+
+Get list of astro objects GET > localhost:3000/api/getAstrList?count=5&tbName=astronomical_object
+
+    Here count is the number of rows that you need from the DB. tbName is either astronomical_object or planet 
+    according to the requirement.
+
+Get an Astro Object GET > localhost:3000/api/getAstrObj?tag=obj1
+
+Get a planet Object GET > localhost:3000/api/getPlanet?tag=obj1
+
+
+.......................User Action containing End points for news object handling
 

@@ -1,6 +1,7 @@
 const {hash,compare} = require("bcryptjs");
 const {executeSQL} = require("../db/db");
 const uniqid = require('uniqid');
+const {spaceOBJ,planet,getAstrList} = require('./SpaceObj');
 
 
 class User{
@@ -67,6 +68,37 @@ class User{
         
     }
 
+    async getAstrObj(tag){
+
+        var astrObj = new spaceOBJ();
+        const status = await astrObj.setDataByDB(tag);
+
+        if (status != "Error"){
+            return(astrObj);
+        }else{
+            return("Error");
+        }
+    }
+
+    async getPlanet(tag){
+
+        var pnet = new planet();
+
+        const status = await pnet.setDataByDB(tag);
+
+        if (status != "Error"){
+            return(pnet);
+        }else{
+            return("Error");
+        }
+    }
+
+    async getObjList(count,tbName){
+
+        return(getAstrList(count,tbName));
+        
+    }
+
    
 }
 
@@ -77,13 +109,33 @@ class AdminUser extends User{
         super(UserName,type);        
     }
 
-    addNewSpaceObj(){
+    AddAstrObj(tag,image,description){
+        var astrObj = new spaceOBJ(tag,image,description);
+
+        console.log(astrObj);
+        return(astrObj.insertToDB());
+    }
+
+    async EditAstrObj(tag,image,description){
+
+        var astrObj = new spaceOBJ();
+        await astrObj.setDataByDB(tag);
+
+        return(astrObj.editDataFFO(image,description));
 
     }
 
-    updateSpaceObj(){
+    async EditPlanet(tag,image,description){
+
+        var pnet = new planet();
+
+        await pnet.setDataByDB(tag);
+
+        return(pnet.editDataFFO(image,description));
 
     }
+
+    
 
     addNews(){
 

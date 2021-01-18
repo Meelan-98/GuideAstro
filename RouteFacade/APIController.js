@@ -13,8 +13,45 @@ router.use(ExtractUser)
 
 ////////////////////////////////////////////////////// GET Requests
 
+router.get('/getAstrObj',async function(req, res){
+
+    var method = new Method(req,res);
+    
+    const status = await uController.getAstrObj(method,req.user);
+
+    console.log(status);
+    
+    res.status(ResponseHandler(status)).send(status);
+
+});
+
+router.get('/getPlanet',async function(req, res){
+
+    var method = new Method(req,res);
+    
+    const status = await uController.getPlanet(method,req.user);
+
+    console.log(status);
+    
+    res.status(ResponseHandler(status)).send(status);
+
+});
+
+router.get('/getAstrList',async function(req, res){
+
+    var method = new Method(req,res);
+    
+    const status = await uController.getAstrList(method,req.user);
+
+    console.log(status);
+    
+    res.status(ResponseHandler(status)).send(status);
+
+});
 
 ////////////////////////////////////////////////////// POST Requests
+
+
 
 router.post('/changepass',async function(req, res){
 
@@ -28,11 +65,47 @@ router.post('/changepass',async function(req, res){
 
 });
 
+router.post('/AddAstrObj',async function(req, res){
+
+    var method = new Method(req,res);
+    
+    const status = await uController.AddAstrObj(method,req.user);
+
+    console.log(status);
+    
+    res.status(ResponseHandler(status)).send(status);
+
+});
+
 
 
 
 
 ////////////////////////////////////////////////////// UPDATE Requests
+
+router.put('/EditAstrObj',async function(req, res){
+
+    var method = new Method(req,res);
+    
+    const status = await uController.EditAstrObj(method,req.user);
+
+    console.log(status);
+    
+    res.status(ResponseHandler(status)).send(status);
+
+});
+
+router.put('/EditPlanet',async function(req, res){
+
+    var method = new Method(req,res);
+    
+    const status = await uController.EditPlanet(method,req.user);
+
+    console.log(status);
+    
+    res.status(ResponseHandler(status)).send(status);
+
+});
 
 ////////////////////////////////////////////////////// DELETE Requests
 
