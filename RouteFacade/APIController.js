@@ -49,6 +49,43 @@ router.get('/getAstrList',async function(req, res){
 
 });
 
+
+router.get('/getNewsList',async function(req, res){
+
+    var method = new Method(req,res);
+    
+    const status = await uController.getNewsList(method,req.user);
+
+    console.log(status);
+    
+    res.status(ResponseHandler(status)).send(status);
+
+});
+
+router.get('/getNews',async function(req, res){
+
+    var method = new Method(req,res);
+    
+    const status = await uController.getNews(method,req.user);
+
+    console.log(status);
+    
+    res.status(ResponseHandler(status)).send(status);
+
+});
+
+router.get('/getComment',async function(req, res){
+
+    var method = new Method(req,res);
+    
+    const status = await uController.getComment(method,req.user);
+
+    console.log(status);
+    
+    res.status(ResponseHandler(status)).send(status);
+
+});
+
 ////////////////////////////////////////////////////// POST Requests
 
 
@@ -77,8 +114,29 @@ router.post('/AddAstrObj',async function(req, res){
 
 });
 
+router.post('/AddNews',async function(req, res){
 
+    var method = new Method(req,res);
+    
+    const status = await uController.AddNews(method,req.user);
 
+    console.log(status);
+    
+    res.status(ResponseHandler(status)).send(status);
+
+});
+
+router.post('/addComment',async function(req, res){
+
+    var method = new Method(req,res);
+    
+    const status = await uController.addComment(method,req.user);
+
+    console.log(status);
+    
+    res.status(ResponseHandler(status)).send(status);
+
+});
 
 
 ////////////////////////////////////////////////////// UPDATE Requests
@@ -100,6 +158,18 @@ router.put('/EditPlanet',async function(req, res){
     var method = new Method(req,res);
     
     const status = await uController.EditPlanet(method,req.user);
+
+    console.log(status);
+    
+    res.status(ResponseHandler(status)).send(status);
+
+});
+
+router.put('/EditNews',async function(req, res){
+
+    var method = new Method(req,res);
+    
+    const status = await uController.EditNews(method,req.user);
 
     console.log(status);
     

@@ -2,6 +2,7 @@ const {hash,compare} = require("bcryptjs");
 const {executeSQL} = require("../db/db");
 const uniqid = require('uniqid');
 const {spaceOBJ,planet,getAstrList} = require('./SpaceObj');
+const news = require('../MODEL/News');
 
 
 class User{
@@ -95,8 +96,38 @@ class User{
 
     async getObjList(count,tbName){
 
-        return(getAstrList(count,tbName));
+        return(await getAstrList(count,tbName));
         
+    }
+
+    async getNewsList(count){
+
+        var data = new news();
+
+        return(await data.getNewsList(count));
+
+    }
+
+    async getNews(id){
+
+        var data = new news();
+
+        return(await data.getNews(id));
+
+    }
+
+    async addComment(id,comment){
+
+        var data = new news();
+
+        return(await data.addComment(id,comment,this.UserName));
+    }
+
+    async getComment(id){
+
+        var data = new news();
+
+        return(await data.getComment(id));
     }
 
    
@@ -137,8 +168,20 @@ class AdminUser extends User{
 
     
 
-    addNews(){
+    async AddNews(description,username){
 
+        var data = new news(username);
+
+        return(await data.setNews(description));
+
+
+    }
+
+    async EditNews(news_id,description,username){
+        
+        var data = new news();
+
+        return(await data.editNews(news_id,description,username));
     }
 
 

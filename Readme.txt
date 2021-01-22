@@ -64,3 +64,24 @@ Get a planet Object GET > localhost:3000/api/getPlanet?tag=obj1
 
 .......................User Action containing End points for news object handling
 
+Add a news POST > localhost:3000/api/AddNews?description=news body
+
+Edit a news PUT > localhost:3000/api/EditNews?id=2&description=Edited news body
+
+Fetch news list  GET > localhost:3000/api/getNewsList?count=5
+
+        * Please Note that the count refers for the number of news articles required
+
+Fetch a news GET > localhost:3000/api/getNews?id=2
+
+        * Here id refers to the news_id of the required news object. You will have to pass it on from the FO
+
+Add a comment POST > localhost:3000/api/addComment?id=2&comment=comment body
+
+Get all the comments GET > localhost:3000/api/getComment?id=1
+
+        * Here id refers to the news_id of the required news object. You will have to pass it on from the FO
+
+
+
+
