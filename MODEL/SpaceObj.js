@@ -29,7 +29,7 @@ class spaceOBJ{
     async setDataByDB(tag){
 
         try{
-            const data = await executeSQL(`SELECT image, description FROM ${this.tableName} WHERE name = '${tag}'`);
+            const data = await executeSQL(`SELECT image, description FROM ${this.tableName} WHERE name = ?`,[tag]);
 
             this.tag = tag;
             this.image = data[0].image;
@@ -52,14 +52,14 @@ class spaceOBJ{
 
             try{
                 
-                const status = await executeSQL(`SELECT name FROM ${this.tableName} WHERE name = '${this.tag}'`);
+                const status = await executeSQL(`SELECT name FROM ${this.tableName} WHERE name = ?`,[this.tag]);
             
                 if (status.length>0){
                     return("Error");
                 }else{
                     
                     try{
-                        await executeSQL(`INSERT INTO ${this.tableName} VALUES ('${this.tag}','${this.image}','${this.description}')`)
+                        await executeSQL(`INSERT INTO ${this.tableName} VALUES (?,?,?)`,[this.tag,this.image,this.description]);
                         return("Data successfully added to the DB");
                     }catch(e){
                         return("Error");
@@ -84,7 +84,7 @@ class spaceOBJ{
         }
 
         try{
-            await executeSQL(`UPDATE ${this.tableName} SET image = '${this.image}', description = '${this.description}' WHERE name = '${this.tag}'`);
+            await executeSQL(`UPDATE ${this.tableName} SET image = ?, description = ? WHERE name = ?`,[this.image,this.description,this.tag]);
             return("Successfully Updated");
         }catch(e){
             return("Error");
@@ -108,7 +108,7 @@ class planet extends spaceOBJ{
     async getDistance(){
 
         try{
-            const data = await executeSQL(`SELECT distance FROM planet WHERE name = '${this.tag}'`)
+            const data = await executeSQL(`SELECT distance FROM planet WHERE name = ?`,[this.tag]);
             this.distance = data[0].distance;
             return(this.distance);
         }catch(e){
@@ -121,7 +121,7 @@ class planet extends spaceOBJ{
 
 async function getAstrList(count,tbName){
     try{
-        console.log(`SELECT * FROM ${tbName} LIMIT ${count}`)
+        console.log(`SELECT * FROM ${tbName} LIMIT ${count}`);
         const data = await executeSQL(`SELECT * FROM ${tbName} LIMIT ${count}`);
         return(data);
     }catch(e){

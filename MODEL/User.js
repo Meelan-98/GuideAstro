@@ -29,7 +29,7 @@ class User{
 
         this.lastUsedTime = Number(new Date().getTime());
         try{
-            await executeSQL(`UPDATE session_table SET lu_time= ${Number(this.lastUsedTime)} WHERE username = '${this.UserName}'`);
+            await executeSQL(`UPDATE session_table SET lu_time= ? WHERE username = ?`,[Number(this.lastUsedTime),this.UserName]);
         }catch(e){
             console.log("Error");
         }
@@ -43,7 +43,7 @@ class User{
 
         try{
             
-            credential = await executeSQL(`SELECT username,password FROM user_table WHERE username = '${this.UserName}'`); 
+            credential = await executeSQL(`SELECT username,password FROM user_table WHERE username = ?`,[this.UserName]); 
             hashedPass = credential[0].password;
             success = await compare(CurrPassword,hashedPass); 
         }
@@ -55,7 +55,7 @@ class User{
             try{
                 
                 const hashedPassword = await hash(NewPassword,10);
-                await executeSQL(`UPDATE user_table SET password = '${hashedPassword}' WHERE username = '${this.UserName}' `); 
+                await executeSQL(`UPDATE user_table SET password = ? WHERE username = ?`,[hashedPassword,this.UserName]); 
                     
                 return ("Password Changed");
                

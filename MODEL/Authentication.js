@@ -14,7 +14,7 @@ async function signup(method){
     var type     = method.searchURL('type');
 
     try{
-        const data = await executeSQL(`SELECT username FROM user_table WHERE username = '${username}'`);
+        const data = await executeSQL('SELECT username FROM user_table WHERE username = ?',[username]);
         
         if(data[0]){
 
@@ -23,14 +23,14 @@ async function signup(method){
         }else{
             
             const hashedPassword = await hash(password,10);
-            await executeSQL(`INSERT INTO user_table VALUES ('${username}','${hashedPassword}','${type}')`);
+            await executeSQL('INSERT INTO user_table SET ?',{username:username,password:hashedPassword,type:type});
             
             return ("User added");
         }
 
     }catch(e){
         
-        return ("Error");
+        return ("Error1");
         
     }   
 }
@@ -40,7 +40,7 @@ async function login(method){
     var username = method.searchURL('username');
     var password = method.searchURL('password');
 
-    const credential = await executeSQL(`SELECT username , password, Type FROM user_table WHERE username = '${username}'`);
+    const credential = await executeSQL('SELECT username , password, Type FROM user_table WHERE username =?',[username]);
     
     try{
         const status = await compare(password,credential[0].password);
@@ -54,14 +54,14 @@ async function login(method){
 
                 users.delete(username);
 
-                await executeSQL(`UPDATE session_table SET session_id = '${user.sessionID}, lu_time= ${Number(new Date().getTime())} ' WHERE username= '${this.UserName}'`);
+                await executeSQL('UPDATE session_table SET session_id = ?, lu_time=? WHERE username= ?',[user.sessionID,Number(new Date().getTime()),this.username]);
                 
                 console.log("User Already Exists, logging out previous users");
 
             }else{
 
                 try{
-                    await executeSQL(`INSERT INTO session_table VALUES ('${user.UserName}','${user.sessionID}',${Number(new Date().getTime())})`);
+                    await executeSQL('INSERT INTO session_table VALUES (?,?,?)',[user.UserName,user.sessionID,Number(new Date().getTime())]);
                 }
                 catch(e){
                     console.log("Error");
@@ -95,7 +95,7 @@ async function logout(user){
     users.delete(user.UserName);
 
     try{
-        await executeSQL(`DELETE FROM session_table WHERE username= '${user.UserName}'`);
+        await executeSQL('DELETE FROM session_table WHERE username= ?',[user.UserName]);
     }
     catch(e){
         console.log("database error");
