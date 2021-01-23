@@ -3,15 +3,24 @@ const {executeSQL} = require("../db/db");
 const {sign, verify} = require("jsonwebtoken");
 const Method = require("../Controller/method");
 const {User,AdminUser} = require("../MODEL/User");
+const { parse } = require('querystring');
 const ACCESS_TOKEN_SECRECT = "SEGProject";
 
 var users = new Map();
 
 async function signup(method){
 
-    var username = method.searchURL('username');
-    var password = method.searchURL('password');
-    var type     = method.searchURL('type');
+    const body = method.getBody();
+
+    const username = body.UserName;
+    const password = body.pass;
+    const type     = body.type;
+    const fName    = body.fname;
+    const lName    = body.lname;
+
+    if(type!="admin" && type!="regular"){
+        return("Error");
+    }
 
     try{
         const data = await executeSQL('SELECT username FROM user_table WHERE username = ?',[username]);
@@ -23,32 +32,38 @@ async function signup(method){
         }else{
             
             const hashedPassword = await hash(password,10);
-            await executeSQL('INSERT INTO user_table SET ?',{username:username,password:hashedPassword,type:type});
+            await executeSQL('INSERT INTO user_table SET ?',{username:username,password:hashedPassword,type:type,fname:fName,lname:lName});
             
+            console.log(username + " successfuly added");
             return ("User added");
         }
 
     }catch(e){
         
-        return ("Error1");
+        return ("Error");
         
     }   
 }
 
 async function login(method){
 
-    var username = method.searchURL('username');
-    var password = method.searchURL('password');
+    const body = method.getBody();
 
-    const credential = await executeSQL('SELECT username , password, Type FROM user_table WHERE username =?',[username]);
+    const username = body.UserName;
+    const password = body.pass;
+
+    const credential = await executeSQL('SELECT username , password, fname, lname, Type FROM user_table WHERE username =?',[username]);
     
     try{
+       
         const status = await compare(password,credential[0].password);
         const type = credential[0].Type;
+        const fname = credential[0].fname;
+        const lname = credential[0].lname;
         
         if (status){
 
-            var user = userCreator(username,type);
+            var user = userCreator(username,type,fname,lname);
 
             if (users.has(username)){
 
@@ -69,14 +84,15 @@ async function login(method){
             }
     
             users.set(username,user);
+
     
             const token = getAccessToken({sessionID:user.sessionID,UserName:user.UserName});
     
-            method.setToken(token,true,50000000);
+            //method.setToken(token,true,50000000);
 
             console.log(username + " Successfully Logged In !!!");
 
-            return ("Password Matches");
+            return ({"token":token,"user":user});
 
         }else{
             return("Error");
@@ -120,6 +136,8 @@ var ExtractUser =async function(req,res, next){
 
     var token = method.getToken();
 
+    console.log(token);
+
     try{
         const {sessionID,UserName} = verify(token,ACCESS_TOKEN_SECRECT);
 
@@ -157,7 +175,7 @@ var RestoreSession = async function(){
 
     for (const [key, value] of data.entries()){
 
-        var user = userCreator(value.username,value.Type,value.session_id,value.lu_time);
+        var user = userCreator(value.username,value.Type,value.fname,value.lname,value.session_id,value.lu_time);
         users.set(value.username,user)
     
     }
@@ -166,11 +184,11 @@ var RestoreSession = async function(){
 }
 
 
-function userCreator(username,type,sessionID,lastUsedTime){
+function userCreator(username,type,fname,lname,sessionID,lastUsedTime){
     if(type=="regular"){
-        var user = new User(username,type,sessionID,lastUsedTime);
+        var user = new User(username,type,fname,lname,sessionID,lastUsedTime);
     }else if (type=="admin"){
-        var user = new AdminUser(username,type,sessionID,lastUsedTime);
+        var user = new AdminUser(username,type,fname,lname,sessionID,lastUsedTime);
     }
 
     return(user)

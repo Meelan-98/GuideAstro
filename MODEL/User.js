@@ -6,7 +6,7 @@ const news = require('../MODEL/News');
 
 
 class User{
-    constructor(UserName,type,sessionID,lastUsedTime){
+    constructor(UserName,type,fname,lname,sessionID,lastUsedTime){
         
         this.UserName = UserName;
         var userType = type;
@@ -22,6 +22,19 @@ class User{
         }
         else{
             this.lastUsedTime = Number(new Date().getTime());
+        }
+        if(fname){
+            this.fname = fname;
+        }
+        else{
+            this.fname = null;
+        }
+
+        if(lname){
+            this.lname = lname;
+        }
+        else{
+            this.lname = null;
         }
     }
 
@@ -136,8 +149,8 @@ class User{
 
 
 class AdminUser extends User{
-    constructor(UserName,type){
-        super(UserName,type);        
+    constructor(UserName,type,fname,lname,sessionID,lastUsedTime){
+        super(UserName,type,fname,lname,sessionID,lastUsedTime);        
     }
 
     AddAstrObj(tag,image,description){
