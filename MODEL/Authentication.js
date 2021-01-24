@@ -52,9 +52,11 @@ async function login(method){
     const username = body.UserName;
     const password = body.pass;
 
-    const credential = await executeSQL('SELECT username , password, fname, lname, Type FROM user_table WHERE username =?',[username]);
+    
     
     try{
+
+        const credential = await executeSQL('SELECT username , password, fname, lname, Type FROM user_table WHERE username =?',[username]);
        
         const status = await compare(password,credential[0].password);
         const type = credential[0].Type;
@@ -135,9 +137,6 @@ var ExtractUser =async function(req,res, next){
     var method = new Method(req,res);
 
     var token = method.getToken();
-
-    console.log(token);
-
     try{
         const {sessionID,UserName} = verify(token,ACCESS_TOKEN_SECRECT);
 

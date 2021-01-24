@@ -5,26 +5,32 @@ class UserController{
 
     changePass(method,user){
 
-        var CurrPassword = method.searchURL('currpassword');
-        var NewPassword = method.searchURL('newpassword');
+        const body = method.getBody();
+
+        var CurrPassword = body.currpassword;
+        var NewPassword = body.newpassword;
 
         return(user.changePass(CurrPassword,NewPassword));
     }
 
     AddAstrObj(method,user){
 
-        const tag = method.searchURL('tag');
-        const image = method.searchURL('image');
-        const description = method.searchURL('desc');
+        const body = method.getBody();
+
+        const tag = body.Tag;
+        const image = body.Image;
+        const description = body.Desc;
 
         return(user.AddAstrObj(tag,image,description));
     }
 
     EditAstrObj(method,user){
 
-        const tag = method.searchURL('tag');
-        const image = method.searchURL('image');
-        const description = method.searchURL('desc');
+        const body = method.getBody();
+
+        const tag = body.Tag;
+        const image = body.Image;
+        const description = body.Desc;
 
         if (image == null && description == null ){
             return("Error");
@@ -37,9 +43,11 @@ class UserController{
 
     EditPlanet(method,user){
 
-        const tag = method.searchURL('tag');
-        const image = method.searchURL('image');
-        const description = method.searchURL('desc');
+        const body = method.getBody();
+
+        const tag = body.Tag;
+        const image = body.Image;
+        const description = body.Desc;
 
         if (image == null && description == null ){
             return("Error");
@@ -72,15 +80,19 @@ class UserController{
 
     AddNews(method,user){
 
-        const description = method.searchURL('description');
+        const body = method.getBody();
+
+        const description = body.Description;
 
         return(user.AddNews(description,user.UserName));
     }
 
     EditNews(method,user){
 
-        const description = method.searchURL('description');
-        const news_id = method.searchURL('id');
+        const body = method.getBody();
+
+        const description = body.Description;
+        const news_id = body.id;
 
         return(user.EditNews(news_id,description,user.UserName));
 
@@ -102,8 +114,10 @@ class UserController{
 
     addComment(method,user){
 
-        const news_id = method.searchURL('id');
-        const comment = method.searchURL('comment');
+        const body = method.getBody();
+
+        const news_id = body.id;
+        const comment = body.Comment;
 
         return(user.addComment(news_id,comment));
     }
