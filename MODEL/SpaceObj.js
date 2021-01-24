@@ -73,7 +73,7 @@ class spaceOBJ{
                 }else{
                     
                     try{
-                        await executeSQL(`INSERT INTO ${this.tableName} (name,image,cardText,description,timestamp) VALUES (?,?,?,?,?)`,[this.tag,this.image,this.cardtext,this.description,this.timestamp]);
+                        await executeSQL(`INSERT INTO ${this.tableName} (name,image,cardText,description,timestamp) VALUES (?,?,?,?,default)`,[this.tag,this.image,this.cardtext,this.description]);
                         return("Data successfully added to the DB");
                     }catch(e){
                         console.log(e);
