@@ -21,6 +21,3 @@ app.use('/api',apiController);
 app.use('/auth',authController);
 
 app.listen(process.env.port);
-
-
-
