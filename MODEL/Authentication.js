@@ -94,7 +94,7 @@ async function login(method){
 
             console.log(username + " Successfully Logged In !!!");
 
-            return ({"token":token,"user":user});
+            return ({"token":token,"user":user,"type":type});
 
         }else{
             return("Error");
