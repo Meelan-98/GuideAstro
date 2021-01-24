@@ -19,23 +19,28 @@ class UserController{
 
         const tag = body.Tag;
         const image = body.Image;
+        const cardText = body.CardText;
         const description = body.Desc;
+        const timestamp = body.tStamp;
 
-        return(user.AddAstrObj(tag,image,description));
+
+        return(user.AddAstrObj(tag,image,cardText,description,timestamp));
     }
 
     EditAstrObj(method,user){
 
         const body = method.getBody();
 
-        const tag = body.Tag;
+        const id = body.ID;
         const image = body.Image;
+        const cardText = body.CardText;
         const description = body.Desc;
+        const timestamp = body.tStamp;
 
         if (image == null && description == null ){
             return("Error");
         }else{
-            return(user.EditAstrObj(tag,image,description));
+            return(user.EditAstrObj(ID,image,cardText,description,timestamp));
         }
 
         
@@ -45,29 +50,31 @@ class UserController{
 
         const body = method.getBody();
 
-        const tag = body.Tag;
+        const id = body.ID;
         const image = body.Image;
+        const cardtext = body.cardText;
         const description = body.Desc;
+        const timestamp = body.tStamp;
 
         if (image == null && description == null ){
             return("Error");
         }else{
-            return(user.EditPlanet(tag,image,description));
+            return(user.EditPlanet(id,image,cardtext,description,timestamp));
         }
     }
 
     getAstrObj(method,user){
 
-        const tag = method.searchURL('tag');
+        const tag = method.searchURL('id');
 
-        return(user.getAstrObj(tag));
+        return(user.getAstrObj(id));
     }
 
     getPlanet(method,user){
 
-        const tag = method.searchURL('tag');
+        const tag = method.searchURL('id');
 
-        return(user.getPlanet(tag));
+        return(user.getPlanet(id));
     }
 
     getAstrList(method,user){
@@ -82,19 +89,27 @@ class UserController{
 
         const body = method.getBody();
 
+        const title = body.Title;
+        const image = body.Image;
+        const cardtext = body.cardText;
         const description = body.Description;
+        const timestamp = body.tStamp;
 
-        return(user.AddNews(description,user.UserName));
+        return(user.AddNews(title,image,cardtext,description,timestamp,user.UserName));
     }
 
     EditNews(method,user){
 
         const body = method.getBody();
 
-        const description = body.Description;
         const news_id = body.id;
+        const title = body.Title;
+        const image = body.Image;
+        const cardtext = body.cardText;
+        const description = body.Description;
+        const timestamp = body.tStamp;
 
-        return(user.EditNews(news_id,description,user.UserName));
+        return(user.EditNews(news_id,title,image,cardtext,description,timestamp,user.UserName));
 
     }
 

@@ -8,9 +8,9 @@ class news{
         }
     }
 
-    async setNews(description){
+    async setNews(title,image,cardtext,description,timestamp){
         try{
-            await executeSQL('INSERT INTO news (description,creator,last_editor) VALUES (?,?,?)',[description,this.creator,this.creator]);
+            await executeSQL('INSERT INTO news (title,image,cardText,description,timestamp) VALUES (?,?,?,?,?)',[title,image,cardtext,description,timestamp]);
             return("News successfully added to the DB");
         }catch(e){
             return("Error");
@@ -19,9 +19,9 @@ class news{
 
     }
 
-    async editNews(news_id,description,username){
+    async editNews(news_id,title,image,cardtext,description,timestamp){
         try{
-            await executeSQL(`UPDATE news SET description = ?, last_editor = ? WHERE news_id = ?`,[description,username,news_id]);
+            await executeSQL(`UPDATE news SET title = ?, image = ?, cardText = ?, description = ?, timestamp = ? WHERE news_id = ?`,[title,image,cardtext,description,timestamp,news_id]);
             return("Successfully edited the DB");
         }catch(e){
             return("Error");
@@ -53,7 +53,7 @@ class news{
             const data = await executeSQL(`SELECT * FROM news WHERE news_id = ?`,[id]);
 
             if (data[0]){
-                await executeSQL(`INSERT INTO news_comment (news_id,username,comment) VALUES (?,?,?)`,[id,comment,username]);
+                await executeSQL(`INSERT INTO news_comment (username,comment,news_id) VALUES (?,?,?)`,[username,comment,id]);
                 return("Comment successfully added to the DB");
             }else{
                 return("Error");

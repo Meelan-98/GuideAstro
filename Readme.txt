@@ -47,7 +47,7 @@ include this in the body as a JSON object
     "newpassword" : "password"
 }
 
-signup POST > localhost:3000/auth/signup?username=meelan&password=pass&type=admin
+signup POST > localhost:3000/auth/signup
 
             Here type can be      a) admin   or   b)regular
 {
