@@ -47,7 +47,7 @@ class spaceOBJ{
     }
 
     async insertToDB(){
-
+        console.log(this.tag)
         if (this.tag != null){
 
             try{
@@ -59,7 +59,7 @@ class spaceOBJ{
                 }else{
                     
                     try{
-                        await executeSQL(`INSERT INTO ${this.tableName} VALUES (?,?,?)`,[this.tag,this.image,this.description]);
+                        await executeSQL(`INSERT INTO ${this.tableName} VALUES (default, ?,?,?,?, default)`,[this.tag,this.image,"",this.description]);
                         return("Data successfully added to the DB");
                     }catch(e){
                         return("Error");
@@ -84,7 +84,7 @@ class spaceOBJ{
         }
 
         try{
-            await executeSQL(`UPDATE ${this.tableName} SET image = ?, description = ? WHERE name = ?`,[this.image,this.description,this.tag]);
+            await executeSQL(`UPDATE ${this.tableName} SET image = ?, cardText = ?, description = ? WHERE name = ?`,[this.image,"",this.description,this.tag]);
             return("Successfully Updated");
         }catch(e){
             return("Error");
