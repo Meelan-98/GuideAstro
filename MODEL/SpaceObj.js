@@ -2,7 +2,7 @@ const {executeSQL} = require("../db/db");
 
 class spaceOBJ{
     
-    constructor(tag,image,description){
+    constructor(tag,image,cardtext,description,timestamp){
         if (tag){
             this.tag = tag;
         }else{
@@ -14,6 +14,12 @@ class spaceOBJ{
         }else{
             this.image = null;
         }
+
+        if (cardtext){
+            this.cardtext = cardtext;
+        }else{
+            this.cardtext = null;
+        }
         
         if (description){
             this.description = description;
@@ -21,19 +27,27 @@ class spaceOBJ{
             this.description = null;
         }
 
+        if (timestamp){
+            this.timestamp = timestamp;
+        }else{
+            this.timestamp = null;
+        }
+
         this.tableName = "astronomical_object";
 
         
     }
 
-    async setDataByDB(tag){
+    async setDataByDB(id){
 
         try{
-            const data = await executeSQL(`SELECT image, description FROM ${this.tableName} WHERE name = ?`,[tag]);
+            const data = await executeSQL(`SELECT name, image, cardText, description, timestamp FROM ${this.tableName} WHERE id = ?`,[id]);
 
-            this.tag = tag;
+            this.tag = data[0].name;
             this.image = data[0].image;
+            this.cardtext = data[0].cardText
             this.description = data[0].description;
+            this.timestamp = data[0].timestamp;
 
             return("Database Read done");
 
@@ -59,7 +73,7 @@ class spaceOBJ{
                 }else{
                     
                     try{
-                        await executeSQL(`INSERT INTO ${this.tableName} VALUES (?,?,?)`,[this.tag,this.image,this.description]);
+                        await executeSQL(`INSERT INTO ${this.tableName} VALUES (?,?,?,?,?)`,[this.tag,this.image,this.cardtext,this.description,this.timestamp]);
                         return("Data successfully added to the DB");
                     }catch(e){
                         return("Error");
@@ -73,18 +87,26 @@ class spaceOBJ{
         }
     }
 
-    async editDataFFO(image,description){
+    async editDataFFO(id,image,cardtext,description,timestamp){
 
         if(image){
             this.image = image;
+        }
+
+        if(cardtext){
+            this.cardtext = cardtext;
         }
 
         if(description){
             this.description = description;
         }
 
+        if(timestamp){
+            this.timestamp = timestamp;
+        }
+
         try{
-            await executeSQL(`UPDATE ${this.tableName} SET image = ?, description = ? WHERE name = ?`,[this.image,this.description,this.tag]);
+            await executeSQL(`UPDATE ${this.tableName} SET image = ?, cardText = ?, description = ?, timestamp = ? WHERE id = ?`,[this.image,this.cardtext,this.description,this.timestamp,id]);
             return("Successfully Updated");
         }catch(e){
             return("Error");
@@ -99,23 +121,23 @@ class spaceOBJ{
 }
 
 class planet extends spaceOBJ{
-    constructor(tag,image,description){
-        super(tag,image,description);
+    constructor(tag,image,cardtext,description,timestamp){
+        super(tag,image,cardtext,description,timestamp);
         this.distance = null;
         this.setTableName();
     }
 
-    async getDistance(){
+    // async getDistance(){
 
-        try{
-            const data = await executeSQL(`SELECT distance FROM planet WHERE name = ?`,[this.tag]);
-            this.distance = data[0].distance;
-            return(this.distance);
-        }catch(e){
-            return("Error");
-        }
+    //     try{
+    //         const data = await executeSQL(`SELECT distance FROM planet WHERE name = ?`,[this.tag]);
+    //         this.distance = data[0].distance;
+    //         return(this.distance);
+    //     }catch(e){
+    //         return("Error");
+    //     }
         
-    }
+    // }
 }
 
 

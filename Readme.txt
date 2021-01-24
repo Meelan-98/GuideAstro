@@ -47,7 +47,7 @@ include this in the body as a JSON object
     "newpassword" : "password"
 }
 
-signup POST > localhost:3000/auth/signup?username=meelan&password=pass&type=admin
+signup POST > localhost:3000/auth/signup
 
             Here type can be      a) admin   or   b)regular
 {
@@ -67,15 +67,20 @@ Add Astronomy object POST > localhost:3000/api/AddAstrObj
 {
     "Tag" : "object name",
     "Image" : "url",
-    "Desc" : "description"
+    "CardText": "cardtext",
+    "Desc" : "description",
+    "tStamp": "time stamp"
 }
+
 
 Edit Astronomy object PUT > localhost:3000/api/EditAstrObj
 
 {
-    "Tag" : "object name",
+    "ID" : "id",
     "Image" : "url",
-    "Desc" : "description"
+    "CardText": "cardtext",
+    "Desc" : "description",
+    "tStamp": "time stamp"
 }
 
     Here tag should be defined but desc and decription are not compulsory
@@ -83,10 +88,13 @@ Edit Astronomy object PUT > localhost:3000/api/EditAstrObj
 Edit Planet object PUT > localhost:3000/api/EditPlanet
 
 {
-    "Tag" : "object name",
+    "ID" : "id",
     "Image" : "url",
-    "Desc" : "description"
+    "CardText": "cardtext",
+    "Desc" : "description",
+    "tStamp": "time stamp"
 }
+
 
     Here also above condition holds
 
@@ -95,9 +103,9 @@ Get list of astro objects GET > localhost:3000/api/getAstrList?count=5&tbName=as
     Here count is the number of rows that you need from the DB. tbName is either astronomical_object or planet 
     according to the requirement.
 
-Get an Astro Object GET > localhost:3000/api/getAstrObj?tag=obj1
+Get an Astro Object GET > localhost:3000/api/getAstrObj?id=idvalue
 
-Get a planet Object GET > localhost:3000/api/getPlanet?tag=obj1
+Get a planet Object GET > localhost:3000/api/getPlanet?id=idval
 
 
 .......................User Action containing End points for news object handling
@@ -105,14 +113,22 @@ Get a planet Object GET > localhost:3000/api/getPlanet?tag=obj1
 Add a news POST > localhost:3000/api/AddNews
 
 {
-    "Description":"news body"
+    "Title":"title",
+    "Image":"imageurl",
+    "cardText": "CDTEXT",
+    "Description" : "data",
+    "tStamp": "timestamp"
 }
 
 Edit a news PUT > localhost:3000/api/EditNews?id=2&description=Edited news body
 
 {
-    "Description":"third news",
     "id":"news_id as an integer"
+    "Title":"title",
+    "Image":"imageurl",
+    "cardText": "CDTEXT",
+    "Description" : "data",
+    "tStamp": "timestamp"
 }
 
 Fetch news list  GET > localhost:3000/api/getNewsList?count=5

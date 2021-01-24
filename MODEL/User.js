@@ -82,10 +82,10 @@ class User{
         
     }
 
-    async getAstrObj(tag){
+    async getAstrObj(id){
 
         var astrObj = new spaceOBJ();
-        const status = await astrObj.setDataByDB(tag);
+        const status = await astrObj.setDataByDB(id);
 
         if (status != "Error"){
             return(astrObj);
@@ -94,11 +94,11 @@ class User{
         }
     }
 
-    async getPlanet(tag){
+    async getPlanet(id){
 
         var pnet = new planet();
 
-        const status = await pnet.setDataByDB(tag);
+        const status = await pnet.setDataByDB(id);
 
         if (status != "Error"){
             return(pnet);
@@ -153,48 +153,49 @@ class AdminUser extends User{
         super(UserName,type,fname,lname,sessionID,lastUsedTime);        
     }
 
-    AddAstrObj(tag,image,description){
-        var astrObj = new spaceOBJ(tag,image,description);
+    async AddAstrObj(tag,image,cardText,description,timestamp){
+
+        var astrObj = new spaceOBJ(tag,image,cardText,description,timestamp);
 
         console.log(astrObj);
-        return(astrObj.insertToDB());
+        return(await astrObj.insertToDB());
     }
 
-    async EditAstrObj(tag,image,description){
+    async EditAstrObj(id,image,description){
 
         var astrObj = new spaceOBJ();
-        await astrObj.setDataByDB(tag);
+        await astrObj.setDataByDB(id);
 
-        return(astrObj.editDataFFO(image,description));
+        return(await astrObj.editDataFFO(id,image,cardtext,description,timestamp));
 
     }
 
-    async EditPlanet(tag,image,description){
+    async EditPlanet(id,cardtext,image,description,timestamp){
 
         var pnet = new planet();
 
-        await pnet.setDataByDB(tag);
+        await pnet.setDataByDB(id);
 
-        return(pnet.editDataFFO(image,description));
+        return(pnet.editDataFFO(image,cardtext,description,timestamp));
 
     }
 
     
 
-    async AddNews(description,username){
+    async AddNews(title,image,cardtext,description,timestamp,username){
 
         var data = new news(username);
 
-        return(await data.setNews(description));
+        return(await data.setNews(title,image,cardtext,description,timestamp));
 
 
     }
 
-    async EditNews(news_id,description,username){
+    async EditNews(news_id,title,image,cardtext,description,timestamp,username){
         
-        var data = new news();
+        var data = new news(username);
 
-        return(await data.editNews(news_id,description,username));
+        return(await data.editNews(news_id,title,image,cardtext,description,timestamp));
     }
 
 
