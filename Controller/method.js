@@ -26,7 +26,7 @@ class Method{
         // var token = cookies.get("JWToken",{signed:true});
         // return token;
         console.log(this.req.headers);
-        var token = this.req.headers['JWToken'];
+        var token = this.req.headers['authorization'];
 
         return(token);
     }
