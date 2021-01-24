@@ -9,10 +9,20 @@ class news{
     }
 
     async setNews(title,image,cardtext,description,timestamp){
+        
         try{
-            await executeSQL('INSERT INTO news (title,image,cardText,description,timestamp) VALUES (?,?,?,?,?)',[title,image,cardtext,description,timestamp]);
-            return("News successfully added to the DB");
+            const data = await executeSQL('SELECT * FROM news WHERE title = ?',[title]);
+
+            if (data.length>0){
+                return("Error");
+            }else{
+                await executeSQL('INSERT INTO news (title,image,cardText,description,timestamp) VALUES (?,?,?,?,?)',[title,image,cardtext,description,timestamp]);
+                return("News successfully added to the DB");
+            }
+
+            
         }catch(e){
+            console.log(e);
             return("Error");
         }
         
@@ -24,6 +34,7 @@ class news{
             await executeSQL(`UPDATE news SET title = ?, image = ?, cardText = ?, description = ?, timestamp = ? WHERE news_id = ?`,[title,image,cardtext,description,timestamp,news_id]);
             return("Successfully edited the DB");
         }catch(e){
+            console.log(e);
             return("Error");
         }
         
@@ -34,6 +45,7 @@ class news{
             const data = await executeSQL(`SELECT * FROM news LIMIT ${count}`);
             return(data);
         }catch(e){
+            console.log(e);
             return("Error");
         }
     }
@@ -43,6 +55,7 @@ class news{
             const data = await executeSQL(`SELECT * FROM news WHERE news_id = ?`,[id]);
             return(data);
         }catch(e){
+            console.log(e);
             return("Error");
         }
     }
@@ -60,6 +73,7 @@ class news{
             }
             
         }catch(e){
+            console.log(e);
             return("Error");
         }
     }
@@ -75,6 +89,7 @@ class news{
                 return("Error");
             }
         }catch(e){
+            console.log(e);
             return("Error");
         }
 

@@ -157,11 +157,10 @@ class AdminUser extends User{
 
         var astrObj = new spaceOBJ(tag,image,cardText,description,timestamp);
 
-        console.log(astrObj);
         return(await astrObj.insertToDB());
     }
 
-    async EditAstrObj(id,image,description){
+    async EditAstrObj(id,image,cardtext,description,timestamp){
 
         var astrObj = new spaceOBJ();
         await astrObj.setDataByDB(id);

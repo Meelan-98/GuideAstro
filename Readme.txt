@@ -62,7 +62,7 @@ signup POST > localhost:3000/auth/signup
 ......................User Action containing End points for Space Object Handling
 
 
-Add Astronomy object POST > localhost:3000/api/AddAstrObj
+Add Astronomy object POST > localhost:3000/api/AddAstrObj        error
 
 {
     "Tag" : "object name",
@@ -115,19 +115,19 @@ Add a news POST > localhost:3000/api/AddNews
 {
     "Title":"title",
     "Image":"imageurl",
-    "cardText": "CDTEXT",
-    "Description" : "data",
+    "CardText": "CDTEXT",
+    "Desc" : "data",
     "tStamp": "timestamp"
 }
 
-Edit a news PUT > localhost:3000/api/EditNews?id=2&description=Edited news body
+Edit a news PUT > localhost:3000/api/EditNews
 
 {
     "id":"news_id as an integer"
     "Title":"title",
     "Image":"imageurl",
-    "cardText": "CDTEXT",
-    "Description" : "data",
+    "CardText": "CDTEXT",
+    "Desc" : "data",
     "tStamp": "timestamp"
 }
 

@@ -40,7 +40,7 @@ class UserController{
         if (image == null && description == null ){
             return("Error");
         }else{
-            return(user.EditAstrObj(ID,image,cardText,description,timestamp));
+            return(user.EditAstrObj(id,image,cardText,description,timestamp));
         }
 
         
@@ -52,7 +52,7 @@ class UserController{
 
         const id = body.ID;
         const image = body.Image;
-        const cardtext = body.cardText;
+        const cardtext = body.CardText;
         const description = body.Desc;
         const timestamp = body.tStamp;
 
@@ -67,14 +67,14 @@ class UserController{
 
         const tag = method.searchURL('id');
 
-        return(user.getAstrObj(id));
+        return(user.getAstrObj(tag));
     }
 
     getPlanet(method,user){
 
         const tag = method.searchURL('id');
 
-        return(user.getPlanet(id));
+        return(user.getPlanet(tag));
     }
 
     getAstrList(method,user){
@@ -91,8 +91,8 @@ class UserController{
 
         const title = body.Title;
         const image = body.Image;
-        const cardtext = body.cardText;
-        const description = body.Description;
+        const cardtext = body.CardText;
+        const description = body.Desc;
         const timestamp = body.tStamp;
 
         return(user.AddNews(title,image,cardtext,description,timestamp,user.UserName));
@@ -105,8 +105,8 @@ class UserController{
         const news_id = body.id;
         const title = body.Title;
         const image = body.Image;
-        const cardtext = body.cardText;
-        const description = body.Description;
+        const cardtext = body.CardText;
+        const description = body.Desc;
         const timestamp = body.tStamp;
 
         return(user.EditNews(news_id,title,image,cardtext,description,timestamp,user.UserName));

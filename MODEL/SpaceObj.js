@@ -52,7 +52,7 @@ class spaceOBJ{
             return("Database Read done");
 
         }catch(e){
-
+            console.log(e);
             return("Error");
         
         }
@@ -73,14 +73,16 @@ class spaceOBJ{
                 }else{
                     
                     try{
-                        await executeSQL(`INSERT INTO ${this.tableName} VALUES (?,?,?,?,?)`,[this.tag,this.image,this.cardtext,this.description,this.timestamp]);
+                        await executeSQL(`INSERT INTO ${this.tableName} (name,image,cardText,description,timestamp) VALUES (?,?,?,?,?)`,[this.tag,this.image,this.cardtext,this.description,this.timestamp]);
                         return("Data successfully added to the DB");
                     }catch(e){
+                        console.log(e);
                         return("Error");
                     }
                
                 }
             }catch(e){
+                console.log(e);
                 return("Error");
             }
   
@@ -109,6 +111,7 @@ class spaceOBJ{
             await executeSQL(`UPDATE ${this.tableName} SET image = ?, cardText = ?, description = ?, timestamp = ? WHERE id = ?`,[this.image,this.cardtext,this.description,this.timestamp,id]);
             return("Successfully Updated");
         }catch(e){
+            console.log(e);
             return("Error");
         }
 
@@ -127,17 +130,6 @@ class planet extends spaceOBJ{
         this.setTableName();
     }
 
-    // async getDistance(){
-
-    //     try{
-    //         const data = await executeSQL(`SELECT distance FROM planet WHERE name = ?`,[this.tag]);
-    //         this.distance = data[0].distance;
-    //         return(this.distance);
-    //     }catch(e){
-    //         return("Error");
-    //     }
-        
-    // }
 }
 
 
@@ -147,6 +139,7 @@ async function getAstrList(count,tbName){
         const data = await executeSQL(`SELECT * FROM ${tbName} LIMIT ${count}`);
         return(data);
     }catch(e){
+        console.log(e);
         return("Error");
     }
 } 
