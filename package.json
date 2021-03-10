@@ -15,7 +15,8 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "run astroguide"
+    "test": "run astroguide",
+    "start": "nodemon index.js"
   },
   "repository": {
     "type": "git",
