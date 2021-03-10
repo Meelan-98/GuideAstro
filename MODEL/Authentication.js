@@ -1,5 +1,5 @@
 const {hash,compare} = require("bcryptjs");
-const {executeSQL} = require("../db/db");
+const {executeSQL} = require("../DB/db");
 const {sign, verify} = require("jsonwebtoken");
 const Method = require("../Controller/method");
 const {User,AdminUser} = require("../MODEL/User");

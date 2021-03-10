@@ -1,4 +1,4 @@
-const {executeSQL} = require("../db/db");
+const {executeSQL} = require("../DB/db");
 
 class news{
 
