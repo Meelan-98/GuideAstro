@@ -26,4 +26,4 @@ app.use(function(req, res, next) {
 app.use('/api',apiController);
 app.use('/auth',authController);
 
-app.listen(process.env.port);
+app.listen(process.env.port, '0.0.0.0');
