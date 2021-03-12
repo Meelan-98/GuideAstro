@@ -19,7 +19,7 @@ router.get('/getAstrObj',async function(req, res){
     
     const status = await uController.getAstrObj(method,req.user);
 
-    console.log(status);
+    // console.log(status);
     
     res.status(ResponseHandler(status)).send(status);
 
@@ -31,7 +31,7 @@ router.get('/getPlanet',async function(req, res){
     
     const status = await uController.getPlanet(method,req.user);
 
-    console.log(status);
+    // console.log(status);
     
     res.status(ResponseHandler(status)).send(status);
 
@@ -43,7 +43,7 @@ router.get('/getAstrList',async function(req, res){
     
     const status = await uController.getAstrList(method,req.user);
 
-    console.log(status);
+    // console.log(status);
     
     res.status(ResponseHandler(status)).send(status);
 
@@ -56,7 +56,7 @@ router.get('/getNewsList',async function(req, res){
     
     const status = await uController.getNewsList(method,req.user);
 
-    console.log(status);
+    // console.log(status);
     
     res.status(ResponseHandler(status)).send(status);
 
@@ -68,7 +68,7 @@ router.get('/getNews',async function(req, res){
     
     const status = await uController.getNews(method,req.user);
 
-    console.log(status);
+    // console.log(status);
     
     res.status(ResponseHandler(status)).send(status);
 
@@ -80,7 +80,7 @@ router.get('/getComment',async function(req, res){
     
     const status = await uController.getComment(method,req.user);
 
-    console.log(status);
+    // console.log(status);
     
     res.status(ResponseHandler(status)).send(status);
 
@@ -96,7 +96,7 @@ router.post('/changepass',async function(req, res){
     
     const status = await uController.changePass(method,req.user);
 
-    console.log(status);
+    // console.log(status);
     
     res.status(ResponseHandler(status)).send(status);
 
@@ -108,7 +108,7 @@ router.post('/AddAstrObj',async function(req, res){
     
     const status = await uController.AddAstrObj(method,req.user);
 
-    console.log(status);
+    // console.log(status);
     
     res.status(ResponseHandler(status)).send(status);
 
@@ -120,7 +120,7 @@ router.post('/AddNews',async function(req, res){
     
     const status = await uController.AddNews(method,req.user);
 
-    console.log(status);
+    // console.log(status);
     
     res.status(ResponseHandler(status)).send(status);
 
@@ -132,7 +132,7 @@ router.post('/addComment',async function(req, res){
     
     const status = await uController.addComment(method,req.user);
 
-    console.log(status);
+    // console.log(status);
     
     res.status(ResponseHandler(status)).send(status);
 
@@ -147,7 +147,7 @@ router.put('/EditAstrObj',async function(req, res){
     
     const status = await uController.EditAstrObj(method,req.user);
 
-    console.log(status);
+    // console.log(status);
     
     res.status(ResponseHandler(status)).send(status);
 
@@ -159,7 +159,7 @@ router.put('/EditPlanet',async function(req, res){
     
     const status = await uController.EditPlanet(method,req.user);
 
-    console.log(status);
+    // console.log(status);
     
     res.status(ResponseHandler(status)).send(status);
 
@@ -171,7 +171,7 @@ router.put('/EditNews',async function(req, res){
     
     const status = await uController.EditNews(method,req.user);
 
-    console.log(status);
+    // console.log(status);
     
     res.status(ResponseHandler(status)).send(status);
 
@@ -185,7 +185,7 @@ router.delete('/logout',async function(req, res){
     
     const status = await logout(req.user);
 
-    console.log(status);
+    // console.log(status);
     
     res.status(ResponseHandler(status)).send(status);
     

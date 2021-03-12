@@ -83,7 +83,7 @@ Edit Astronomy object PUT > localhost:3000/api/EditAstrObj
     "tStamp": "time stamp"
 }
 
-    Here tag should be defined but desc and decription are not compulsory
+    Here ID should be defined but desc, cardtext, image are not compulsory
 
 Edit Planet object PUT > localhost:3000/api/EditPlanet
 

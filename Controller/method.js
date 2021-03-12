@@ -1,5 +1,4 @@
 const {URL}= require('url');
-const Cookies = require("cookies");
 const keys = ['SEngineering'];
 
 const dotenv = require('dotenv');
@@ -22,19 +21,10 @@ class Method{
         return this.url.searchParams.get(query);
     }
     getToken(){
-        // var cookies = new Cookies(this.req, this.res, { keys: keys });
-        // var token = cookies.get("JWToken",{signed:true});
-        // return token;
-        console.log(this.req.headers);
         var token = this.req.headers['authorization'];
 
         return(token);
     }
-
-    // setToken(token,httpOnly,time){
-    //     var cookies = new Cookies(this.req, this.res, { keys: keys });
-    //     cookies.set('JWToken', token, { signed: true, maxAge:time,httpOnly:httpOnly});
-    // }
 
     setUser(user){
         this.user=user;

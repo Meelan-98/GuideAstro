@@ -9,7 +9,7 @@ class User{
     constructor(UserName,type,fname,lname,sessionID,lastUsedTime){
         
         this.UserName = UserName;
-        var userType = type;
+        this.userTP = type;
 
         if(sessionID){
             this.sessionID = sessionID;
@@ -36,6 +36,10 @@ class User{
         else{
             this.lname = null;
         }
+    }
+
+    getType(){
+        return(this.userTP);
     }
 
     async setLastUsedTime(){
@@ -169,13 +173,13 @@ class AdminUser extends User{
 
     }
 
-    async EditPlanet(id,cardtext,image,description,timestamp){
+    async EditPlanet(id,image,cardtext,description,timestamp){
 
         var pnet = new planet();
 
         await pnet.setDataByDB(id);
 
-        return(pnet.editDataFFO(image,cardtext,description,timestamp));
+        return(pnet.editDataFFO(id,image,cardtext,description,timestamp));
 
     }
 

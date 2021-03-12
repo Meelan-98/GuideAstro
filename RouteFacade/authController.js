@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-const {login,signup} = require("../MODEL/Authentication");
+const {login,signup,ExtractUser} = require("../MODEL/Authentication");
 const {ResponseHandler} = require("../Controller/ResponseController");
 const Method = require("../Controller/method");
 

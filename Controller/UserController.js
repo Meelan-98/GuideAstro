@@ -10,7 +10,13 @@ class UserController{
         var CurrPassword = body.currpassword;
         var NewPassword = body.newpassword;
 
-        return(user.changePass(CurrPassword,NewPassword));
+        try{
+            return(user.changePass(CurrPassword,NewPassword));
+        }catch(e){
+            console.log(e);
+            return("Error")
+        }
+        
     }
 
     AddAstrObj(method,user){
@@ -23,8 +29,13 @@ class UserController{
         const description = body.Desc;
         const timestamp = body.tStamp;
 
-
-        return(user.AddAstrObj(tag,image,cardText,description,timestamp));
+        try{
+            return(user.AddAstrObj(tag,image,cardText,description,timestamp));
+        }catch(e){
+            console.log(e);
+            return("AccessDenied")
+        }
+        
     }
 
     EditAstrObj(method,user){
@@ -40,7 +51,13 @@ class UserController{
         if (image == null && description == null ){
             return("Error");
         }else{
-            return(user.EditAstrObj(id,image,cardText,description,timestamp));
+            try{
+                return(user.EditAstrObj(id,image,cardText,description,timestamp)); 
+            }catch(e){
+                console.log(e);
+                return("AccessDenied")
+            }
+            
         }
 
         
@@ -59,7 +76,13 @@ class UserController{
         if (image == null && description == null ){
             return("Error");
         }else{
-            return(user.EditPlanet(id,image,cardtext,description,timestamp));
+            try{
+                return(user.EditPlanet(id,image,cardtext,description,timestamp)); 
+            }catch(e){
+                console.log(e);
+                return("AccessDenied")
+            }
+            
         }
     }
 
@@ -95,7 +118,13 @@ class UserController{
         const description = body.Desc;
         const timestamp = body.tStamp;
 
-        return(user.AddNews(title,image,cardtext,description,timestamp,user.UserName));
+        try{
+            return(user.AddNews(title,image,cardtext,description,timestamp,user.UserName));
+        }catch(e){
+            console.log(e);
+            return("AccessDenied")
+        }
+        
     }
 
     EditNews(method,user){
@@ -109,7 +138,13 @@ class UserController{
         const description = body.Desc;
         const timestamp = body.tStamp;
 
-        return(user.EditNews(news_id,title,image,cardtext,description,timestamp,user.UserName));
+        try{
+            return(user.EditNews(news_id,title,image,cardtext,description,timestamp,user.UserName));
+        }catch(e){
+            console.log(e);
+            return("AccessDenied")
+        }
+        
 
     }
 

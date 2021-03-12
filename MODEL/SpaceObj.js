@@ -135,7 +135,6 @@ class planet extends spaceOBJ{
 
 async function getAstrList(count,tbName){
     try{
-        console.log(`SELECT * FROM ${tbName} LIMIT ${count}`);
         const data = await executeSQL(`SELECT * FROM ${tbName} LIMIT ${count}`);
         return(data);
     }catch(e){

@@ -10,39 +10,49 @@ var users = new Map();
 
 async function signup(method){
 
-    const body = method.getBody();
+    const superUser = await UserForSignup(method);
+    
+    console.log();
 
-    const username = body.UserName;
-    const password = body.pass;
-    const type     = body.type;
-    const fName    = body.fname;
-    const lName    = body.lname;
+    if(superUser.getType() == "regular"){
+        return ("AccessDenied");
+    }else{
+        const body = method.getBody();
 
-    if(type!="admin" && type!="regular"){
-        return("Error");
-    }
+        const username = body.UserName;
+        const password = body.pass;
+        const type     = body.type;
+        const fName    = body.fname;
+        const lName    = body.lname;
 
-    try{
-        const data = await executeSQL('SELECT username FROM user_table WHERE username = ?',[username]);
-        
-        if(data[0]){
-
-            return ("Error");
-        
-        }else{
-            
-            const hashedPassword = await hash(password,10);
-            await executeSQL('INSERT INTO user_table SET ?',{username:username,password:hashedPassword,type:type,fname:fName,lname:lName});
-            
-            console.log(username + " successfuly added");
-            return ("User added");
+        if(type!="admin" && type!="regular"){
+            return("Error");
         }
 
-    }catch(e){
-        
-        return ("Error");
-        
-    }   
+        try{
+            const data = await executeSQL('SELECT username FROM user_table WHERE username = ?',[username]);
+            
+            if(data[0]){
+
+                return ("Error");
+            
+            }else{
+                
+                const hashedPassword = await hash(password,10);
+                await executeSQL('INSERT INTO user_table SET ?',{username:username,password:hashedPassword,type:type,fname:fName,lname:lName});
+                
+                console.log(username + " successfuly added");
+                return ("User added");
+            }
+
+        }catch(e){
+            
+            return ("Error");
+            
+        }  
+    }
+
+     
 }
 
 async function login(method){
@@ -137,6 +147,7 @@ var ExtractUser =async function(req,res, next){
     var method = new Method(req,res);
 
     var token = method.getToken();
+
     try{
         const {sessionID,UserName} = verify(token,ACCESS_TOKEN_SECRECT);
 
@@ -209,6 +220,28 @@ function ShowCurrentUsers(){
 
     
 
+}
+
+
+var UserForSignup =async function(method){
+
+    var token = method.getToken();
+
+    try{
+        const {sessionID,UserName} = verify(token,ACCESS_TOKEN_SECRECT);
+
+        if(sessionID){
+            var user = users.get(UserName);
+            await user.setLastUsedTime();
+            return(user)
+        }
+    }
+    catch(err){
+        return("Invalid Token")
+    }
+
+    
+    
 }
 
 module.exports = {login,signup,getAccessToken,ExtractUser,RestoreSession,logout,ShowCurrentUsers};
