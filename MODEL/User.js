@@ -1,5 +1,5 @@
 const {hash,compare} = require("bcryptjs");
-const {executeSQL} = require("../db/db");
+const {executeSQL} = require("../DB/db");
 const uniqid = require('uniqid');
 const {spaceOBJ,planet,getAstrList} = require('./SpaceObj');
 const news = require('../MODEL/News');

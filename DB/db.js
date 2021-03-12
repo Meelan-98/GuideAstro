@@ -3,7 +3,13 @@ var mysql = require('mysql');
 const dotenv = require('dotenv');
 dotenv.config();
 
-const dbSettings = (JSON.parse(process.env.dbconfig))
+const dbSettings = {
+    connectionLimit: Number.parseInt(process.env.DB_CONNECTIONLIMIT),
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    host: process.env.DB_HOST,
+    database: process.env.DB_DATABASE
+}
 var pool  = mysql.createPool(dbSettings);
  
 function executeSQL(sql,placeholder){

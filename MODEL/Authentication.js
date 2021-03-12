@@ -1,5 +1,5 @@
 const {hash,compare} = require("bcryptjs");
-const {executeSQL} = require("../db/db");
+const {executeSQL} = require("../DB/db");
 const {sign, verify} = require("jsonwebtoken");
 const Method = require("../Controller/method");
 const {User,AdminUser} = require("../MODEL/User");
@@ -177,7 +177,7 @@ var RestoreSession = async function(){
     var data = null;
 
     try{
-        data = await executeSQL('SELECT * FROM session_table LEFT JOIN User_table on session_table.username = user_table.username');
+        data = await executeSQL('SELECT * FROM session_table LEFT JOIN user_table on session_table.username = user_table.username');
     }catch(e){
         console.log("error");
     }

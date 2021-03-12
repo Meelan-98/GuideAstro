@@ -19,7 +19,8 @@
     "chai": "^4.3.3"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "start": "nodemon index.js"
   },
   "repository": {
     "type": "git",
